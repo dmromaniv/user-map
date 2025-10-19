@@ -13,11 +13,11 @@ interface SearchableSelectProps {
   onSelectionChange: (selected: string[]) => void;
 }
 
-export default function SearchableSelect({
+const SearchableSelect = ({
   options,
   selectedInterests,
   onSelectionChange,
-}: SearchableSelectProps) {
+}: SearchableSelectProps) => {
   const handleClearFilters = () => {
     onSelectionChange([]);
   };
@@ -30,10 +30,10 @@ export default function SearchableSelect({
         </p>
         <CustomSelect
           selectedItems={selectedInterests}
-          className="dark:[&_.ant-select-selector]:!bg-teal-900 dark:[&_.ant-select-selector]:!border-teal-900 dark:[&_.ant-select-selector]:!text-white [&_.ant-select-selection-placeholder]:!text-gray-400"
+          className="dark:[&_.ant-select-selector]:!bg-teal-900 dark:[&_.ant-select-selector]:!border-teal-900 dark:[&_.ant-select-selector]:!text-white [&_.ant-select-selection-placeholder]:!text-gray-400 hover:[&_.ant-select-selector]:!border-teal-900 focus:[&_.ant-select-selector]:!border-teal-900 [&.ant-select-outlined_.ant-select-selector]:!border-gray-300 dark:[&.ant-select-outlined_.ant-select-selector]:!border-teal-900"
           classNames={{
             popup: {
-              root: "dark:!bg-teal-900 rounded-xl shadow-lg [&_.ant-select-item-option]:!text-white",
+              root: "dark:!bg-teal-900 rounded-md shadow-lg dark:[&_.ant-select-item-option]:!text-white",
             },
           }}
           onChange={onSelectionChange}
@@ -54,4 +54,6 @@ export default function SearchableSelect({
       )}
     </div>
   );
-}
+};
+
+export default SearchableSelect;
