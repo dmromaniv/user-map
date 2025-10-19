@@ -11,7 +11,7 @@ export const MARKER_CONFIG = {
 
 //  Map view configuration
 export const MAP_VIEW = {
-  center: [20, 0] as [number, number], // World center coordinates
+  center: [20, 0] as [number, number],
   defaultZoom: 2,
   maxZoom: 18,
   minZoom: 2,
