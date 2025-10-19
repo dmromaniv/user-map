@@ -1,73 +1,62 @@
-# React + TypeScript + Vite
+# 🌍 Friends Finder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web app for discovering users around the world by **interests** and **geographical location**.  
+It displays markers on an interactive map (with clustering) and automatically centers on the user’s current location it it is enabled.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+-  **Interest-based filtering**: filter users by a list of interests. (Filters are saved in localStorage). 
+-  **Interactive map**:  built with Leaflet and `react-leaflet`.  
+-  **User location detection**: centers the map on the current user position via `react-geolocated`.  
+- **Marker clustering**:  efficiently render thousands of points.  
+- **Mocked users data**: used JSON with 10,000 random users across the world.  
+- **Config-driven**: default map parameters and tile providers managed in `/config`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Tech Stack
+- **Frontend**: [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- **Map**: [Leaflet](https://leafletjs.com/) + [React-Leaflet](https://react-leaflet.js.org/)
+- **Clustering**: [Supercluster](https://github.com/mapbox/supercluster)
+- **Geolocation**: [react-geolocated](https://github.com/no23reason/react-geolocated)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [Ant Design v5](https://ant.design/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Architecture
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### **Data Layer**
+All user data lives in a JSON file (10k records).  
+User Model:
+```json
+{
+  id: string;
+  name: string;
+  interests: string[];
+  location: { lat: number; lng: number }
+}
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### **How to Run App locally**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+ 1. Clone the repository
+ ```
+git clone https://github.com/dmromaniv/user-map.git
+cd user-map
 ```
+
+ 2. Install dependencies
+```
+npm install
+```
+3. run app 
+```npm run dev```
+
+### **Future Improvements**
+
+- User authentication & roles (for editing interests);
+
+- Integrated with BE and move filtering to it;
+
+- Upgrade design;
