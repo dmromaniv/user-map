@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 
 import "./styles/base.css";
+import "./App.css";
 
 async function enableMocks() {
   if (import.meta.env.DEV) {

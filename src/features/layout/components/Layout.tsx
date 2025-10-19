@@ -7,9 +7,9 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="min-h-screen grid grid-rows-[auto_1fr_auto] px-10">
+    <div className="min-h-screen max-w-[1280px] mx-auto grid grid-rows-[auto_1fr_auto] px-10">
       <Header />
-      <main className="relative h-full">{children}</main>
+      <main className="relative h-full ">{children}</main>
       <Footer />
     </div>
   );

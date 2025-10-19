@@ -1,5 +1,3 @@
-// Icon.tsx
-
 interface LocationIconProps {
   color?: string;
   size?: number;
