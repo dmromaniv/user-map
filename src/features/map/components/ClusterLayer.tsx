@@ -6,6 +6,8 @@ import Supercluster from "supercluster";
 
 import UserDetailsPopup from "./UserDetailsPopup";
 
+import { useUserContext } from "../../../hooks/useUserContext";
+
 import { createMarkerIcon, createClusterIcon } from "../utils/icons";
 import { filterUsersBySelectedInterests, toGeoJSON } from "../utils/clustering";
 
@@ -19,20 +21,17 @@ interface UserClusterLayerProps {
   //  Radius in kilometers to filter users. Use Infinity for worldwide view
   radiusKm: number | typeof Infinity;
   selectedInterests: string[];
-  userList: User[];
-  interestMap: Map<string, number[]>;
 }
 
 const UserClusterLayer = ({
-  userList,
-  interestMap: interestIndex,
   radiusKm,
   selectedInterests,
 }: UserClusterLayerProps) => {
-  const map = useMap();
-
   const [mapUpdateTrigger, setMapUpdateTrigger] = useState(0);
   const animationFrameRef = useRef<number | null>(null);
+
+  const map = useMap();
+  const { userList, userInterestsMap: interestIndex } = useUserContext();
 
   // Handle map movement and zoom changes with debounced updates
   useMapEvents({

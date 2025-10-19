@@ -9,19 +9,11 @@ import { OSM_CONFIG } from "../../../config/tiles";
 // leaflet default styles
 import "leaflet/dist/leaflet.css";
 
-import type { User } from "../../../types/user";
-
 type MapViewProps = {
-  userList: User[];
-  interestsMap: Map<string, number[]>;
   selectedInterests: string[];
 };
 
-const MapView = ({
-  selectedInterests,
-  interestsMap,
-  userList,
-}: MapViewProps) => {
+const MapView = ({ selectedInterests }: MapViewProps) => {
   return (
     <MapContainer
       center={MAP_VIEW.center}
@@ -35,8 +27,6 @@ const MapView = ({
         centerLat={MAP_VIEW.center[0]}
         centerLng={MAP_VIEW.center[1]}
         radiusKm={Infinity}
-        userList={userList}
-        interestMap={interestsMap}
         selectedInterests={selectedInterests}
       />
     </MapContainer>

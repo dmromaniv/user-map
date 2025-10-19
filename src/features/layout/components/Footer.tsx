@@ -1,8 +1,11 @@
-interface FooterProps {
-  totalUsers?: number;
-  totalInterests?: number;
-}
-const Footer = ({ totalUsers = 10000, totalInterests = 44 }: FooterProps) => {
+import { useUserContext } from "../../../hooks/useUserContext";
+
+const Footer = () => {
+  const { userList, userInterestsMap } = useUserContext();
+
+  const totalUsersCount = userList.length;
+  const totalInterestsCount = userInterestsMap.size;
+
   const currentYear = new Date().getFullYear();
 
   return (
@@ -11,19 +14,19 @@ const Footer = ({ totalUsers = 10000, totalInterests = 44 }: FooterProps) => {
         <p>&copy; {currentYear} User Finder. Discover connections worldwide.</p>
 
         <div className="flex gap-x-10 items-center">
-          {totalUsers && (
+          {totalUsersCount > 0 && (
             <p>
               Total Users:
               <span className="font-medium pl-1 text-black dark:text-gray-400">
-                {totalUsers}
+                {totalUsersCount}
               </span>
             </p>
           )}
-          {totalInterests && (
+          {totalInterestsCount > 0 && (
             <p>
               Interests:
               <span className="font-medium pl-1 text-black dark:text-gray-400">
-                {totalInterests}
+                {totalInterestsCount}
               </span>
             </p>
           )}
