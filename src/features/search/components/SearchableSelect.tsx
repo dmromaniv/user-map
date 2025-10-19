@@ -46,7 +46,7 @@ const SearchableSelect = ({
         <CustomButton
           color="default"
           variant="solid"
-          className="dark:!bg-teal-900"
+          className="!bg-teal-900 dark:!text-white"
           onClick={handleClearFilters}
         >
           {CLEAR_FILTER_BUTTON_LABEL}
