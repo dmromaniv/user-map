@@ -1,18 +1,16 @@
-import { useState } from "react";
-
 import { Layout } from "../features/layout";
-
 import SearchableSelect from "../features/search/components/SearchableSelect";
 import MapView from "../features/map/components/MapView";
 
 import { useUsers } from "../hooks/useUsers";
+import { useSelectedInterests } from "../hooks/useSelectedInterests";
 
 const HomePage = () => {
-  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+  const { selectedInterests, updateSelectedInterests } = useSelectedInterests();
   const { userList, userInterestsMap } = useUsers();
 
   const onSelectInterests = (interests: string[]) => {
-    setSelectedInterests(interests);
+    updateSelectedInterests(interests);
   };
 
   return (
