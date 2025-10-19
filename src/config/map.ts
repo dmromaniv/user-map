@@ -11,8 +11,9 @@ export const MARKER_CONFIG = {
 
 //  Map view configuration
 export const MAP_VIEW = {
-  center: [20, 0] as [number, number],
-  defaultZoom: 2,
+  // Kyiv (50.4501, 30.5234)
+  center: [50.4501, 30.5234] as [number, number],
+  defaultZoom: 10,
   maxZoom: 18,
   minZoom: 2,
 } as const;

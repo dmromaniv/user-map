@@ -2,7 +2,8 @@ import L from "leaflet";
 
 import { MARKER_CONFIG } from "../../../config/map";
 
-export const createMarkerIcon = () => new L.Icon(MARKER_CONFIG);
+export const createMarkerIcon = (icon?: string) =>
+  new L.Icon(icon ? { ...MARKER_CONFIG, iconUrl: icon } : MARKER_CONFIG);
 
 export const createClusterIcon = (count: number) =>
   L.divIcon({

@@ -1,6 +1,8 @@
 import { MapContainer, TileLayer } from "react-leaflet";
+import { useGeolocated } from "react-geolocated";
 
 import ClusterLayer from "./ClusterLayer";
+import CurrentUserLocation from "./CurrentUserLocation";
 
 // ui config
 import { MAP_VIEW } from "../../../config/map";
@@ -14,6 +16,15 @@ type MapViewProps = {
 };
 
 const MapView = ({ selectedInterests }: MapViewProps) => {
+  const { coords } = useGeolocated({
+    positionOptions: {
+      enableHighAccuracy: true,
+    },
+    userDecisionTimeout: 10_000,
+    suppressLocationOnMount: false,
+    watchPosition: false,
+  });
+
   return (
     <MapContainer
       center={MAP_VIEW.center}
@@ -22,13 +33,15 @@ const MapView = ({ selectedInterests }: MapViewProps) => {
       preferCanvas
       worldCopyJump
     >
+      {coords && (
+        <CurrentUserLocation
+          lat={coords.latitude}
+          lng={coords.longitude}
+          zoom={MAP_VIEW.defaultZoom}
+        />
+      )}
       <TileLayer url={OSM_CONFIG.url} attribution={OSM_CONFIG.attribution} />
-      <ClusterLayer
-        centerLat={MAP_VIEW.center[0]}
-        centerLng={MAP_VIEW.center[1]}
-        radiusKm={Infinity}
-        selectedInterests={selectedInterests}
-      />
+      <ClusterLayer selectedInterests={selectedInterests} />
     </MapContainer>
   );
 };

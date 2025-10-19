@@ -16,17 +16,10 @@ import type { User } from "../../../types/user";
 import { CLUSTER_CONFIG } from "../../../config/map";
 
 interface UserClusterLayerProps {
-  centerLat: number;
-  centerLng: number;
-  //  Radius in kilometers to filter users. Use Infinity for worldwide view
-  radiusKm: number | typeof Infinity;
   selectedInterests: string[];
 }
 
-const UserClusterLayer = ({
-  radiusKm,
-  selectedInterests,
-}: UserClusterLayerProps) => {
+const UserClusterLayer = ({ selectedInterests }: UserClusterLayerProps) => {
   const [mapUpdateTrigger, setMapUpdateTrigger] = useState(0);
   const animationFrameRef = useRef<number | null>(null);
 
@@ -57,15 +50,9 @@ const UserClusterLayer = ({
     [userList, interestIndex, selectedInterests]
   );
 
-  // Apply geographic filtering (currently disabled when radius is Infinity)
-  const filteredUsers = useMemo(() => {
-    if (!Number.isFinite(radiusKm)) return usersWithMatchingInterests;
-    return usersWithMatchingInterests;
-  }, [usersWithMatchingInterests, radiusKm]);
-
   // Init cluster  with filtered user points
   const clusterIndex = useMemo(() => {
-    const geoPoints = toGeoJSON(filteredUsers);
+    const geoPoints = toGeoJSON(usersWithMatchingInterests);
     const clusterEngine = new Supercluster<{ uid: string }>({
       radius: CLUSTER_CONFIG.radius,
       maxZoom: CLUSTER_CONFIG.maxZoom,
@@ -74,7 +61,7 @@ const UserClusterLayer = ({
     clusterEngine.load(geoPoints);
 
     return clusterEngine;
-  }, [filteredUsers]);
+  }, [usersWithMatchingInterests]);
 
   // Show only visible clusters based on current map bounds and zoom
   const visibleClusters = useMemo(() => {
@@ -118,7 +105,9 @@ const UserClusterLayer = ({
 
         // Render individual user marker
         const userId = feature.properties?.uid as string;
-        const userData = filteredUsers.find((user: User) => user.id === userId);
+        const userData = usersWithMatchingInterests.find(
+          (user: User) => user.id === userId
+        );
         return (
           <Marker
             key={`user-${userId}`}
