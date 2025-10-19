@@ -10,7 +10,7 @@ const Footer = () => {
 
   return (
     <footer className="px-3 py-5 ">
-      <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-100 max-w-7xl mx-auto">
+      <div className="flex max-md:flex-col md:items-center justify-between text-sm text-gray-600 dark:text-gray-100 max-w-7xl mx-auto">
         <p>&copy; {currentYear} User Finder. Discover connections worldwide.</p>
 
         <div className="flex gap-x-10 items-center">
